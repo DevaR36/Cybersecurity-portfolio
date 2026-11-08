@@ -1,91 +1,71 @@
+# SOC Monitoring & Threat Detection
 
-# Deva Singh Rasaputra
-### Cybersecurity | Security Operations | Digital Forensics | Cloud Security
+## Project Overview
 
-Welcome to my cybersecurity portfolio!
+This project documents selected Security Operations Center (SOC) investigations and detection engineering exercises completed during my Junior Cybersecurity Analyst Internship at EncryptEdge Labs.
 
-I am a Master's student in Computer & Information Science at Alabama A&M University, with a background in software development, artificial intelligence, and cybersecurity.
+The work focused on security event monitoring, log correlation, network traffic analysis, threat detection, and incident response within authorized virtual laboratory environments.
 
-During my Junior Cybersecurity Analyst Internship at EncryptEdge Labs, I gained hands-on experience in security monitoring, threat detection, digital forensics, malware analysis, incident response, network security, and cloud security through practical laboratory investigations.
+## Tools & Technologies
 
-This portfolio highlights selected cybersecurity projects, technical skills, and investigation methodologies developed through my academic and professional training.
+**SIEM:** Wazuh, Splunk, Elasticsearch, Kibana
 
----
+**Network Security:** Suricata, Zeek, Wireshark
 
-## Cybersecurity Projects
+**Endpoint Monitoring:** Sysmon, Windows Event Logs
 
-### 1. [SOC Monitoring & Threat Detection](01-soc-threat-detection/)
+**Environment & Automation:** Ubuntu Linux, Windows 10, VMware, Docker, Python
 
-**Tools:** Wazuh, Splunk, Suricata, Zeek, Wireshark, Sysmon, Python
+## Case Study 1: Authentication Monitoring & SIEM Analysis
 
-- SIEM deployment and security monitoring
-- Log analysis and event correlation
-- Threat detection and alert investigation
-- Custom security detection rules
-- Incident analysis and reporting
+**Objective:** Identify suspicious authentication activity and improve detection through log correlation.
 
-### 2. [Digital Forensics & Malware Analysis](02-digital-forensics-malware-analysis/)
+### Methodology
 
-**Tools:** FTK Imager, Autopsy, Volatility 3, REMnux, Sleuth Kit, Plaso
+- Configured Windows endpoint event monitoring using Sysmon and Wazuh.
+- Analyzed Windows authentication events, including failed-login Event ID 4625 and privileged-logon Event ID 4672.
+- Developed custom Wazuh correlation rules to identify repeated authentication failures and privileged-login activity.
+- Used Splunk to examine authentication, endpoint, and network event patterns in controlled training datasets.
 
-- Disk image and forensic artifact examination
-- Memory analysis and process investigation
-- Malware indicator analysis
-- Windows event log and persistence investigation
-- Forensic timeline reconstruction
+### Results
 
-### 3. [AWS Cloud Security Assessment](03-aws-cloud-security/)
+- Successfully generated a Wazuh Level 10 alert for three failed login attempts within 60 seconds.
+- Validated additional Level 8 detection for privileged-logon activity.
+- Demonstrated how event correlation improves visibility into potentially suspicious authentication behavior.
 
-**Tools:** AWS IAM, CloudTrail, AWS Config, AWS CLI, Scout Suite
+## Case Study 2: Network Incident Investigation & Detection Engineering
 
-- Identity and access management
-- Cloud security configuration review
-- Security monitoring and logging
-- Cloud misconfiguration assessment
-- Risk assessment and remediation recommendations
+**Objective:** Investigate suspicious network activity and improve detection coverage using network security monitoring tools.
 
----
+### Methodology
 
-## Technical Skills
+- Analyzed a historical network capture containing 22,473 packets.
+- Examined Suricata alerts and correlated relevant network activity using Zeek and Wireshark.
+- Investigated suspicious HTTP communications and identified candidate indicators of compromise.
+- Developed and validated a custom Suricata detection rule for a recurring HTTP POST pattern.
+- Integrated the custom detection with Wazuh and verified alert indexing in the SIEM dashboard.
 
-**Security Monitoring & Network Analysis:** Wazuh, Splunk, Wireshark, Zeek, Suricata, Sysmon, Nmap
+### Results
 
-**Digital Forensics & Malware Analysis:** FTK Imager, Autopsy, Volatility 3, REMnux, YARA
+- Identified 51 alerts using the original Suricata ruleset.
+- Generated 113 additional alerts using the new detection rule during offline analysis.
+- Increased observed alert coverage from 51 to 164 alerts in the combined ruleset.
+- Successfully validated the corresponding Wazuh detection through a controlled test event.
 
-**Cloud Security & Platforms:** AWS IAM, CloudTrail, AWS Config, Scout Suite, Linux, Windows, VMware, Docker
+These results demonstrate improved detection coverage for the specific traffic pattern. They do not establish confirmed malware execution, successful data exfiltration, or a measured false-positive rate.
 
-**Programming:** Python, Java, JavaScript, SQL
+## Key Skills Demonstrated
 
-**Security Frameworks:** MITRE ATT&CK, NIST CSF, CIS Controls, ISO 27001
+- SOC Monitoring & Alert Triage
+- SIEM Configuration & Log Correlation
+- Network Traffic Analysis
+- Detection Engineering
+- Security Event Investigation
+- MITRE ATT&CK Mapping
+- Incident Response Documentation
 
----
+## Project Scope & Disclaimer
 
-## Education & Experience
+All activities were performed in authorized laboratory environments using controlled or historical training datasets.
 
-**Master of Science in Computer & Information Science**  
-Alabama A&M University | Expected December 2026
-
-**Junior Cybersecurity Analyst Intern**  
-EncryptEdge Labs | September - November 2026
-
-**Graduate Research Assistant**  
-Alabama A&M University
-
-**Software Developer**  
-Midas Enterprises
-
----
-
-## Connect With Me
-
-**LinkedIn:** [Deva Singh Rasaputra](https://www.linkedin.com/in/devasingh-rasaputra/)
-
-**GitHub:** [DevaR36](https://github.com/DevaR36)
-
----
-
-## Portfolio Disclaimer
-
-Projects in this portfolio reflect authorized cybersecurity training, academic work, and controlled laboratory investigations. Case studies are intended to demonstrate technical knowledge and analytical methodology.
-
-Confidential internship reports, credentials, sensitive configurations, and restricted evidence are not published.
+This portfolio presents original summaries of technical methods and findings. Confidential internship reports, sensitive evidence, credentials, and restricted materials are excluded.
