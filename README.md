@@ -64,6 +64,40 @@ These results demonstrate improved detection coverage for the specific traffic p
 - MITRE ATT&CK Mapping
 - Incident Response Documentation
 
+
+## Security Monitoring Architecture
+
+The following diagrams illustrate the monitoring workflows used across separate authorized cybersecurity laboratory exercises. They are conceptual representations rather than exact production network architectures.
+
+### Wazuh-Based Security Monitoring
+
+```mermaid
+flowchart TD
+    A["Windows Event Logs and Sysmon"] --> B["Wazuh Agent"]
+    C["Suricata IDS Alerts"] --> D["Linux Log Collection"]
+    E["Zeek Network Logs"] --> D
+    B --> F["Wazuh Manager"]
+    D --> F
+    F --> G["Custom Detection and Correlation Rules"]
+    G --> H["Wazuh Dashboard"]
+    H --> I["Alert Investigation and Reporting"]
+```
+
+### Separate Splunk Log Analysis Lab
+
+```mermaid
+flowchart TD
+    A["Synthetic Authentication Logs"] --> D["Splunk Enterprise"]
+    B["Synthetic Endpoint Logs"] --> D
+    C["Synthetic Network Logs"] --> D
+    D --> E["SPL Searches and Event Correlation"]
+    E --> F["Suspicious Activity Investigation"]
+    F --> G["Findings and Risk Assessment"]
+```
+
+These diagrams summarize different training exercises. They do not imply that Wazuh and Splunk were deployed as a single integrated monitoring system.
+
+
 ## Project Scope & Disclaimer
 
 All activities were performed in authorized laboratory environments using controlled or historical training datasets.
