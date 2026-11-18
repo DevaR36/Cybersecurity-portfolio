@@ -1,105 +1,32 @@
-# SOC Monitoring & Threat Detection
+# Deva Singh Rasaputra — Cybersecurity Portfolio
 
-## Project Overview
+**Security Operations | Threat Detection | Digital Forensics | AWS Cloud Security**
 
-This project documents selected Security Operations Center (SOC) investigations and detection engineering exercises completed during my Junior Cybersecurity Analyst Internship at EncryptEdge Labs.
+I'm a Master's student in Computer & Information Science at Alabama A&M University with a background in software development and graduate research. My hands-on cybersecurity work includes authorized laboratory investigations completed during my Junior Cybersecurity Analyst Internship at EncryptEdge Labs (September–November 2026).
 
-The work focused on security event monitoring, log correlation, network traffic analysis, threat detection, and incident response within authorized virtual laboratory environments.
+This portfolio highlights selected technical methods, learning outcomes, and independently developed demonstrations. Case studies describe separate lab exercises; they are not claims of work performed in a production SOC.
 
-## Tools & Technologies
+## Featured Projects
 
-**SIEM:** Wazuh, Splunk, Elasticsearch, Kibana
+| Project | Focus | Key tools |
+| --- | --- | --- |
+| [SOC Monitoring & Threat Detection](01-soc-threat-detection/README.md) | SIEM, event correlation, network traffic analysis, detection engineering | Wazuh, Splunk, Suricata, Zeek, Wireshark, Python |
+| [Digital Forensics & Malware Analysis](02-digital-forensics-malware-analysis/README.md) | Disk and memory forensics, static malware analysis, timelines | FTK Imager, Autopsy, Volatility 3, Plaso, REMnux, YARA |
+| [AWS Cloud Security Assessment](03-aws-cloud-security/README.md) | IAM, security monitoring, misconfiguration assessment, remediation verification | AWS IAM, CloudTrail, AWS Config, AWS CLI, Scout Suite |
 
-**Network Security:** Suricata, Zeek, Wireshark
+## Technical Skills
 
-**Endpoint Monitoring:** Sysmon, Windows Event Logs
+- **Security Monitoring & Network Analysis:** Wazuh, Splunk, Wireshark, Zeek, Suricata, Sysmon, Nmap
+- **Digital Forensics & Malware Analysis:** FTK Imager, Autopsy, Volatility 3, Plaso, REMnux, YARA
+- **Cloud Security & Platforms:** AWS IAM, CloudTrail, AWS Config, Scout Suite, Linux, Windows, VMware, Docker
+- **Programming:** Python, Java, JavaScript, SQL
+- **Frameworks:** MITRE ATT&CK, NIST CSF, CIS Controls, ISO 27001
 
-**Environment & Automation:** Ubuntu Linux, Windows 10, VMware, Docker, Python
+## Connect
 
-## Case Study 1: Authentication Monitoring & SIEM Analysis
+- [LinkedIn](https://www.linkedin.com/in/devasingh-rasaputra/)
+- [GitHub](https://github.com/DevaR36)
 
-**Objective:** Identify suspicious authentication activity and improve detection through log correlation.
+## Publication & Scope
 
-### Methodology
-
-- Configured Windows endpoint event monitoring using Sysmon and Wazuh.
-- Analyzed Windows authentication events, including failed-login Event ID 4625 and privileged-logon Event ID 4672.
-- Developed custom Wazuh correlation rules to identify repeated authentication failures and privileged-login activity.
-- Used Splunk to examine authentication, endpoint, and network event patterns in controlled training datasets.
-
-### Results
-
-- Successfully generated a Wazuh Level 10 alert for three failed login attempts within 60 seconds.
-- Validated additional Level 8 detection for privileged-logon activity.
-- Demonstrated how event correlation improves visibility into potentially suspicious authentication behavior.
-
-## Case Study 2: Network Incident Investigation & Detection Engineering
-
-**Objective:** Investigate suspicious network activity and improve detection coverage using network security monitoring tools.
-
-### Methodology
-
-- Analyzed a historical network capture containing 22,473 packets.
-- Examined Suricata alerts and correlated relevant network activity using Zeek and Wireshark.
-- Investigated suspicious HTTP communications and identified candidate indicators of compromise.
-- Developed and validated a custom Suricata detection rule for a recurring HTTP POST pattern.
-- Integrated the custom detection with Wazuh and verified alert indexing in the SIEM dashboard.
-
-### Results
-
-- Identified 51 alerts using the original Suricata ruleset.
-- Generated 113 additional alerts using the new detection rule during offline analysis.
-- Increased observed alert coverage from 51 to 164 alerts in the combined ruleset.
-- Successfully validated the corresponding Wazuh detection through a controlled test event.
-
-These results demonstrate improved detection coverage for the specific traffic pattern. They do not establish confirmed malware execution, successful data exfiltration, or a measured false-positive rate.
-
-## Key Skills Demonstrated
-
-- SOC Monitoring & Alert Triage
-- SIEM Configuration & Log Correlation
-- Network Traffic Analysis
-- Detection Engineering
-- Security Event Investigation
-- MITRE ATT&CK Mapping
-- Incident Response Documentation
-
-
-## Security Monitoring Architecture
-
-The following diagrams illustrate the monitoring workflows used across separate authorized cybersecurity laboratory exercises. They are conceptual representations rather than exact production network architectures.
-
-### Wazuh-Based Security Monitoring
-
-```mermaid
-flowchart TD
-    A["Windows Event Logs and Sysmon"] --> B["Wazuh Agent"]
-    C["Suricata IDS Alerts"] --> D["Linux Log Collection"]
-    E["Zeek Network Logs"] --> D
-    B --> F["Wazuh Manager"]
-    D --> F
-    F --> G["Custom Detection and Correlation Rules"]
-    G --> H["Wazuh Dashboard"]
-    H --> I["Alert Investigation and Reporting"]
-```
-
-### Separate Splunk Log Analysis Lab
-
-```mermaid
-flowchart TD
-    A["Synthetic Authentication Logs"] --> D["Splunk Enterprise"]
-    B["Synthetic Endpoint Logs"] --> D
-    C["Synthetic Network Logs"] --> D
-    D --> E["SPL Searches and Event Correlation"]
-    E --> F["Suspicious Activity Investigation"]
-    F --> G["Findings and Risk Assessment"]
-```
-
-These diagrams summarize different training exercises. They do not imply that Wazuh and Splunk were deployed as a single integrated monitoring system.
-
-
-## Project Scope & Disclaimer
-
-All activities were performed in authorized laboratory environments using controlled or historical training datasets.
-
-This portfolio presents original summaries of technical methods and findings. Confidential internship reports, sensitive evidence, credentials, and restricted materials are excluded.
+These case studies summarize authorized training and independent learning. They do not contain original confidential internship reports, restricted evidence, credentials, cloud account identifiers, or malware samples. Findings and limitations should be interpreted in the context of the particular lab and dataset.
