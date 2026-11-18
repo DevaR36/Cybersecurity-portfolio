@@ -98,6 +98,39 @@ flowchart TD
 These diagrams summarize different training exercises. They do not imply that Wazuh and Splunk were deployed as a single integrated monitoring system.
 
 
+### Automated Testing & Validation
+
+The Python failed-login detection script was validated using seven automated unit tests with synthetic authentication events.
+
+**Test Scenarios:**
+
+1. Three failed logins within 60 seconds
+2. Fewer than three failed logins
+3. Failed logins outside the detection window
+4. Authentication attempts from different IP addresses
+5. Successful logins excluded from detection
+6. Unsorted authentication events
+7. Failed logins exactly 60 seconds apart
+
+**Validation Results:** 7 tests passed during local testing.
+
+### Source Code
+
+- [Python Log Analyzer](log_analyzer.py)
+- [Automated Unit Tests](test_log_analyzer.py)
+
+### Running the Tests
+
+Requires Python 3.
+
+```bash
+python -m unittest -v test_log_analyzer.py
+```
+
+The detection logic operates on synthetic data and is intended for educational demonstration, not production deployment.
+
+Potential false positives include legitimate users repeatedly entering incorrect credentials.
+
 
 ## Independent Python Detection Example
 
