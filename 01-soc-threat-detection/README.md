@@ -1,158 +1,136 @@
+![SOC Monitoring and Threat Detection banner](assets/soc-banner.svg)
+
 # SOC Monitoring & Threat Detection
 
-## Project Overview
+**Security operations • Event correlation • Network analysis • Detection engineering**
 
-This project documents selected Security Operations Center (SOC) investigations and detection engineering exercises completed during my Junior Cybersecurity Analyst Internship at EncryptEdge Labs.
+> A curated set of authorized training investigations from my Junior Cybersecurity Analyst internship at EncryptEdge Labs, complemented by a **new, fictional Python and Sigma detection demonstration** prepared specifically for this portfolio.
 
-The work focused on security event monitoring, log correlation, network traffic analysis, threat detection, and incident response within authorized virtual laboratory environments.
+[← Back to Cybersecurity Portfolio](../README.md) · [View code](log_analyzer.py) · [View tests](test_log_analyzer.py) · [View Sigma rule](sigma/windows_failed_logon_burst.yml)
 
-## Tools & Technologies
+---
 
-**SIEM:** Wazuh, Splunk, Elasticsearch, Kibana
+## At a glance
 
-**Network Security:** Suricata, Zeek, Wireshark
+| | |
+|---|---|
+| **Focus** | SOC monitoring, alert triage, detection development, incident investigation |
+| **Platforms** | Wazuh, Splunk, Elasticsearch/Kibana, Sysmon, Suricata, Zeek, Wireshark |
+| **Lab systems** | Windows 10, Ubuntu Linux, VMware Workstation, Docker |
+| **Independent demo** | Python 3 failed-login analyzer + synthetic CSV + Sigma correlation rule |
+| **Validation** | 17 automated Python tests passed; Sigma YAML parsed and structure checked |
+| **Scope** | Authorized laboratories and historical or fictional datasets; no production SOC activity |
 
-**Endpoint Monitoring:** Sysmon, Windows Event Logs
+## What I worked on
 
-**Environment & Automation:** Ubuntu Linux, Windows 10, VMware, Docker, Python
+### 01 · Authentication monitoring and alert triage
 
-## Case Study 1: Authentication Monitoring & SIEM Analysis
+**Challenge:** Separate repeated authentication failures and privileged-logon indicators from routine event noise.
 
-**Objective:** Identify suspicious authentication activity and improve detection through log correlation.
+**My work:** Configured Windows log collection and Sysmon/Wazuh monitoring in a virtual lab. Investigated Windows Security Event IDs **4625** (failed logon) and **4672** (special privileges assigned), and tested custom alerting and correlation rules.
 
-### Methodology
+**Outcome:** Verified a training detection that raised an alert for three failed logons in 60 seconds and examined privileged-logon alerts. These observations indicated activity for investigation, **not proof of compromise**.
 
-- Configured Windows endpoint event monitoring using Sysmon and Wazuh.
-- Analyzed Windows authentication events, including failed-login Event ID 4625 and privileged-logon Event ID 4672.
-- Developed custom Wazuh correlation rules to identify repeated authentication failures and privileged-login activity.
-- Used Splunk to examine authentication, endpoint, and network event patterns in controlled training datasets.
+### 02 · SIEM correlation with Splunk
 
-### Results
+**Challenge:** Understand how isolated endpoint, authentication, and network events become meaningful when examined together.
 
-- Successfully generated a Wazuh Level 10 alert for three failed login attempts within 60 seconds.
-- Validated additional Level 8 detection for privileged-logon activity.
-- Demonstrated how event correlation improves visibility into potentially suspicious authentication behavior.
+**My work:** Ingested a controlled **synthetic** dataset into Splunk Enterprise, used SPL searches to correlate event fields and investigated potential event sequences.
 
-## Case Study 2: Network Incident Investigation & Detection Engineering
+**Outcome:** Practiced evidence-based alert triage and documented how event context affects interpretation. The Splunk exercise was **separate** from the Wazuh monitoring environment.
 
-**Objective:** Investigate suspicious network activity and improve detection coverage using network security monitoring tools.
+### 03 · Network incident investigation and detection tuning
 
-### Methodology
+**Challenge:** Assess suspicious network activity and determine whether an additional detection could improve coverage of a specific observed pattern.
 
-- Analyzed a historical network capture containing 22,473 packets.
-- Examined Suricata alerts and correlated relevant network activity using Zeek and Wireshark.
-- Investigated suspicious HTTP communications and identified candidate indicators of compromise.
-- Developed and validated a custom Suricata detection rule for a recurring HTTP POST pattern.
-- Integrated the custom detection with Wazuh and verified alert indexing in the SIEM dashboard.
+**My work:** Examined an offline historical capture with Suricata, Zeek, and Wireshark; correlated IDS alerts with HTTP and connection records; tested a custom detection during a controlled replay; and verified a resulting Wazuh test alert.
 
-### Results
+**Outcome:** In the documented lab replay, a baseline of **51 Suricata alerts** increased to **164** after adding the training-specific detection. This is an **alert-count comparison for one historical capture**, not a measured improvement in accuracy or a confirmed malware infection.
 
-- Identified 51 alerts using the original Suricata ruleset.
-- Generated 113 additional alerts using the new detection rule during offline analysis.
-- Increased observed alert coverage from 51 to 164 alerts in the combined ruleset.
-- Successfully validated the corresponding Wazuh detection through a controlled test event.
+> The three studies above are summaries of **separate** training exercises. Original task solutions, case datasets, and internal reports are intentionally not published.
 
-These results demonstrate improved detection coverage for the specific traffic pattern. They do not establish confirmed malware execution, successful data exfiltration, or a measured false-positive rate.
+---
 
-## Key Skills Demonstrated
+## Monitoring workflows
 
-- SOC Monitoring & Alert Triage
-- SIEM Configuration & Log Correlation
-- Network Traffic Analysis
-- Detection Engineering
-- Security Event Investigation
-- MITRE ATT&CK Mapping
-- Incident Response Documentation
+These diagrams illustrate the concepts used in the exercises—not an exact infrastructure diagram and not a claim that all tools were connected in one deployment.
 
-
-## Security Monitoring Architecture
-
-The following diagrams illustrate the monitoring workflows used across separate authorized cybersecurity laboratory exercises. They are conceptual representations rather than exact production network architectures.
-
-### Wazuh-Based Security Monitoring
+### Wazuh-centered monitoring lab
 
 ```mermaid
 flowchart TD
-    A["Windows Event Logs and Sysmon"] --> B["Wazuh Agent"]
-    C["Suricata IDS Alerts"] --> D["Linux Log Collection"]
-    E["Zeek Network Logs"] --> D
-    B --> F["Wazuh Manager"]
-    D --> F
-    F --> G["Custom Detection and Correlation Rules"]
-    G --> H["Wazuh Dashboard"]
-    H --> I["Alert Investigation and Reporting"]
+    W["Windows Security Events & Sysmon"] --> WA["Wazuh Agent"]
+    N["Historical Network Capture"] --> IDS["Suricata & Zeek Analysis"]
+    IDS --> L["Selected Network Alert & Log Collection"]
+    WA --> M["Wazuh Manager"]
+    L --> M
+    M --> R["Detection Rules & Correlation"]
+    R --> D["Wazuh Dashboard"]
+    D --> T["Analyst Triage & Reporting"]
 ```
 
-### Separate Splunk Log Analysis Lab
+### Separate Splunk exercise
 
 ```mermaid
 flowchart TD
-    A["Synthetic Authentication Logs"] --> D["Splunk Enterprise"]
-    B["Synthetic Endpoint Logs"] --> D
-    C["Synthetic Network Logs"] --> D
-    D --> E["SPL Searches and Event Correlation"]
-    E --> F["Suspicious Activity Investigation"]
-    F --> G["Findings and Risk Assessment"]
+    A["Synthetic Authentication Logs"] --> S["Splunk Enterprise"]
+    B["Synthetic Endpoint Logs"] --> S
+    C["Synthetic Network Logs"] --> S
+    S --> Q["SPL Search & Correlation"]
+    Q --> I["Investigation & Risk Notes"]
 ```
 
-These diagrams summarize different training exercises. They do not imply that Wazuh and Splunk were deployed as a single integrated monitoring system.
+---
 
+## Independent detection demonstration
 
-### Automated Testing & Validation
+To demonstrate the underlying detection concepts without publishing internship solutions, this portfolio includes a **standalone educational example** that identifies repeated failed sign-ins from the same source IP.
 
-The Python failed-login detection script was validated using seven automated unit tests with synthetic authentication events.
+| File | Purpose |
+|---|---|
+| [`log_analyzer.py`](log_analyzer.py) | Reads fictional authentication events and applies a 60-second sliding window |
+| [`test_log_analyzer.py`](test_log_analyzer.py) | Automated tests for detection, boundaries, bad input, and command-line operation |
+| [`data/synthetic_auth_events.csv`](data/synthetic_auth_events.csv) | Fictional test data using documentation-only IP ranges |
+| [`sigma/windows_failed_logon_burst.yml`](sigma/windows_failed_logon_burst.yml) | Experimental Sigma base selector and event-count correlation rule |
+| [`docs/VALIDATION.md`](docs/VALIDATION.md) | Reproducible run commands, observed results, limitations, and Sigma validation status |
 
-**Test Scenarios:**
+### Try the Python example
 
-1. Three failed logins within 60 seconds
-2. Fewer than three failed logins
-3. Failed logins outside the detection window
-4. Authentication attempts from different IP addresses
-5. Successful logins excluded from detection
-6. Unsorted authentication events
-7. Failed logins exactly 60 seconds apart
+Requires **Python 3.10+**. No external packages, SIEM credentials, or network access are needed.
 
-**Validation Results:** 7 tests passed during local testing.
-
-### Source Code
-
-- [Python Log Analyzer](log_analyzer.py)
-- [Automated Unit Tests](test_log_analyzer.py)
-
-### Running the Tests
-
-Requires Python 3.
+From this project directory:
 
 ```bash
+python log_analyzer.py
 python -m unittest -v test_log_analyzer.py
 ```
 
-The detection logic operates on synthetic data and is intended for educational demonstration, not production deployment.
-
-Potential false positives include legitimate users repeatedly entering incorrect credentials.
-
-
-## Independent Python Detection Example
-
-The [Python failed-login analyzer](log_analyzer.py) uses fictional authentication events to flag three failed logins from the same source IP within a 60-second sliding window. It was tested with Python 3 (no external dependencies) and produced the output below. This example is separate from the Wazuh and Splunk lab investigations described above.
-
-To run it:
-
-```bash
-python3 log_analyzer.py
-```
-
-Expected output for the included synthetic data:
+Example output from the supplied fictional CSV:
 
 ```text
-[ALERT] Suspicious login activity from 192.0.2.10: 3 failures within 60 seconds
-Analysis complete.
+[ALERT] 192.0.2.10: 3 failed logins between 2026-10-01T10:00:00Z and 2026-10-01T10:00:50Z
+Analysis complete: 1 source(s) flagged.
 ```
 
-The script does not ingest live Windows events, implement user-account exclusions, or establish that failed authentication attempts are malicious.
+The script groups by **source IP**, sorts events before evaluation, excludes successful logins, and generates **one demonstration alert per IP**. It is not intended to replace a production SIEM or determine whether an attack occurred.
 
-## Project Scope & Disclaimer
+### Sigma rule
 
-All activities were performed in authorized laboratory environments using controlled or historical training datasets.
+The example Sigma file models Windows Security **Event ID 4625** plus a correlation for **at least three events per source IP in one minute**. The base selector and correlation are stored together in a two-document YAML file. Refer to the [official Sigma correlation specification](https://sigmahq.io/docs/meta/correlations.html).
 
-This portfolio presents original summaries of technical methods and findings. Confidential internship reports, sensitive evidence, credentials, and restricted materials are excluded.
+**Important:** A Sigma backend may aggregate into fixed time buckets, whereas the Python example uses a true sliding window. The two are *similar detection ideas*, not guaranteed identical implementations. The YAML has been syntax-checked; it has **not** been deployed or tested against a production SIEM. Read [validation details](docs/VALIDATION.md) before reuse.
+
+---
+
+## Lessons and limitations
+
+- **Context matters:** An alert is a lead for investigation, not itself confirmation of malicious activity.
+- **Tuning matters:** More alerts do not necessarily mean better security; false positives and detection coverage must be evaluated.
+- **Data quality matters:** Real Windows Security events do not always include a usable source IP; field mappings vary by collector and SIEM backend.
+- **Reproducibility matters:** Independent tests and clear scope statements make portfolio demonstrations more useful to reviewers.
+
+## Responsible publication
+
+This repository contains **original public-facing summaries and fictional educational examples** prepared with AI-assisted drafting and local testing. It deliberately excludes confidential internship reports, internal templates, full assessment solutions, credentials, raw sensitive evidence, and malware binaries. It does not represent deployment in an operational organization.
+
+**Portfolio author:** Deva Singh Rasaputra · [LinkedIn](https://www.linkedin.com/in/devasingh-rasaputra/) · [Portfolio home](../README.md)

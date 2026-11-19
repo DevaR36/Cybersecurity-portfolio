@@ -1,0 +1,51 @@
+# Independent educational rule, not copied from an internship assessment.
+# A two-document Sigma collection: a base selector and an event-count correlation.
+title: Windows Failed Logon - Base Event
+id: 58ae72f8-a975-4f24-aa93-34e72dc0db13
+name: soc_demo_failed_windows_logon
+status: experimental
+description: Identifies Windows Security failed-logon events (Event ID 4625).
+author: Deva Singh Rasaputra
+date: 2026-11-17
+references:
+    - https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4625
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4625
+    condition: selection
+fields:
+    - IpAddress
+    - TargetUserName
+    - Computer
+falsepositives:
+    - Normal user password errors
+    - Misconfigured applications or scheduled services
+level: informational
+---
+title: Repeated Windows Failed Logons from One Source - Training Rule
+id: 74c71a0b-3b48-434e-8460-dba0185bc617
+status: experimental
+description: Groups at least three Windows failed-logon events by source IP in one minute.
+author: Deva Singh Rasaputra
+date: 2026-11-17
+references:
+    - https://sigmahq.io/docs/meta/correlations.html
+correlation:
+    type: event_count
+    rules:
+        - soc_demo_failed_windows_logon
+    group-by:
+        - IpAddress
+    timespan: 1m
+    condition:
+        gte: 3
+falsepositives:
+    - Repeated legitimate password mistakes
+    - Shared or NAT source addresses
+level: medium
+tags:
+    - attack.credential_access
+    - attack.t1110

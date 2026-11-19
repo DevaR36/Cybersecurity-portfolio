@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">SOC Monitoring and Threat Detection</title>
+  <desc id="desc">Dark blue portfolio banner with network connections, monitoring nodes, and detection theme.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0B1224"/>
+      <stop offset="1" stop-color="#14253D"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#34D399"/>
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#7692B6" stroke-opacity=".11" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="320" rx="19" fill="url(#bg)"/>
+  <rect width="1200" height="320" rx="19" fill="url(#grid)"/>
+  <rect x="52" y="53" width="6" height="214" rx="3" fill="url(#accent)"/>
+  <text x="82" y="98" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#75E0E7" letter-spacing="3">CYBERSECURITY PORTFOLIO</text>
+  <text x="82" y="169" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" fill="#F5FAFF">SOC Monitoring</text>
+  <text x="82" y="232" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" fill="#F5FAFF">&amp; Threat Detection</text>
+  <text x="83" y="276" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#B1C8D9">SIEM  /  LOG CORRELATION  /  NETWORK ANALYSIS</text>
+  <g stroke="#56C7F5" stroke-width="3" fill="none" stroke-opacity=".7">
+    <path d="M927 94L1026 148L954 241L836 187Z"/>
+    <path d="M836 187L893 265L954 241"/>
+    <path d="M927 94L1074 71L1121 169L1026 148"/>
+    <path d="M1026 148L1080 251L1121 169"/>
+  </g>
+  <g fill="#0F2138" stroke="#34D399" stroke-width="4">
+    <circle cx="927" cy="94" r="17"/>
+    <circle cx="1026" cy="148" r="27"/>
+    <circle cx="954" cy="241" r="17"/>
+    <circle cx="836" cy="187" r="14"/>
+    <circle cx="893" cy="265" r="11"/>
+    <circle cx="1074" cy="71" r="13"/>
+    <circle cx="1121" cy="169" r="16"/>
+    <circle cx="1080" cy="251" r="12"/>
+  </g>
+  <g fill="#72D4F5">
+    <circle cx="927" cy="94" r="5"/>
+    <circle cx="1026" cy="148" r="10"/>
+    <circle cx="954" cy="241" r="5"/>
+    <circle cx="836" cy="187" r="4"/>
+    <circle cx="1121" cy="169" r="5"/>
+  </g>
+</svg>
