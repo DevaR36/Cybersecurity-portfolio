@@ -1,0 +1,8 @@
+{
+  "_notice": "Fictional training example; not exported from an AWS account.",
+  "iam": {"root_mfa": true, "analyst_mfa": true, "password_min_length": 8},
+  "ec2": {"ebs_default_encryption": true},
+  "s3": {"audit_bucket_block_public_access": true, "audit_bucket_tls_required": false, "audit_bucket_versioning": false},
+  "cloudtrail": {"management_logging": true, "multi_region": true, "log_file_validation": true},
+  "config": {"recorder_enabled": true}
+}

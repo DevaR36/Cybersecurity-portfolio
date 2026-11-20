@@ -1,0 +1,13 @@
+# Generated Python bytecode and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+# Environments, local secrets and temporary output
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
